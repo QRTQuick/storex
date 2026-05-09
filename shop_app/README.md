@@ -1,87 +1,47 @@
 # Shop App - Flutter Mobile Application
 
-A comprehensive Flutter mobile application for online shop management with InsForge backend integration.
+A complete Flutter mobile app for online shop management with InsForge backend.
 
 ## Features
 
-### User Authentication
-- Login and Sign Up functionality
-- Role-based access (Buyer, Owner, Admin)
-- Persistent session management
+- **User Authentication**: Login/Signup with role selection (Buyer/Owner)
+- **Shop Management**: Create shops with website booking
+- **Product Management**: 
+  - Snap product photos using camera
+  - Select from 10 categories
+  - Fill in product info (name, description, price)
+  - Toggle availability (Available/Sold)
+- **Role Switching**: Switch between Owner and Buyer modes
+- **Admin Panel**: Exclusive access for chisomlifeeke@gamil.com
 
-### For Shop Owners
-- Create and manage online shop
-- Book a website for the store
-- Snap product photos using camera
-- Select product category from predefined list
-- Fill in product information (name, description, price, category)
-- Toggle product availability (Available/Sold)
-- View shop statistics (total products, available, sold)
-- Switch between Owner and Buyer roles
+## Backend
 
-### For Buyers
-- Browse all available products
-- Filter products by category
-- View product details with images
-- Switch to Owner role to start selling
+This app uses **InsForge** as the backend service.
 
-### Admin Panel
-- Exclusive access for `chisomlifeeke@gamil.com`
-- View all users in the system
-- Monitor all registered shops
-- Track all products across all shops
-- Statistics dashboard
+### Setup InsForge CLI
 
-## Tech Stack
+```bash
+# Login to InsForge
+npx @insforge/cli login --user-api-key uak_vVzpTs7_PMX--OcfwcxLg2-YD8y_8k2XaxHxXWwh8PM
 
-- **Frontend**: Flutter
-- **Backend**: InsForge
-- **State Management**: Provider
-- **Image Handling**: image_picker
-- **Local Storage**: shared_preferences
-- **HTTP Client**: http
-
-## Project Structure
-
-```
-shop_app/
-├── lib/
-│   ├── main.dart                 # App entry point
-│   ├── models/
-│   │   ├── user.dart            # User model
-│   │   ├── shop.dart            # Shop model
-│   │   └── product.dart         # Product model
-│   ├── services/
-│   │   ├── auth_service.dart    # Authentication service
-│   │   └── insforge_service.dart # InsForge API service
-│   ├── providers/
-│   │   └── app_provider.dart    # State management
-│   └── screens/
-│       ├── auth_wrapper.dart    # Auth state handler
-│       ├── login_screen.dart    # Login UI
-│       ├── signup_screen.dart   # Registration UI
-│       ├── home_screen.dart     # Main home screen
-│       ├── create_shop_screen.dart  # Shop creation
-│       ├── shop_owner_screen.dart   # Owner dashboard
-│       ├── buyer_screen.dart        # Buyer marketplace
-│       ├── add_product_screen.dart  # Add product with camera
-│       └── admin_panel_screen.dart  # Admin dashboard
-├── assets/
-│   └── images/
-└── pubspec.yaml
+# Link project
+npx @insforge/cli link --project-id 3b4bec2b-c107-4241-a90e-aa4e98065648
 ```
 
-## Setup Instructions
+## Getting Started
 
 ### Prerequisites
-1. Flutter SDK installed
-2. InsForge CLI installed and linked
-3. Android Studio / VS Code with Flutter extensions
+
+- Flutter SDK (3.24.0 or higher)
+- Java JDK 17
+- Android Studio / VS Code
+- InsForge CLI
 
 ### Installation
 
-1. Navigate to the project directory:
+1. Clone the repository:
 ```bash
+git clone <your-repo-url>
 cd shop_app
 ```
 
@@ -95,54 +55,78 @@ flutter pub get
 flutter run
 ```
 
-## Backend Configuration
+## Build APK
 
-The app is configured to use InsForge as the backend. The API service is located in `lib/services/insforge_service.dart`.
+### Local Build
 
-Key endpoints:
-- Authentication: `/auth/signup`, `/auth/signin`
-- Users: `/users/{id}`, `/users/{id}/role`
-- Shops: `/shops`
-- Products: `/products`
-- Admin: `/admin/users`, `/admin/shops`
+```bash
+cd shop_app
+flutter build apk --release
+```
 
-## Usage Flow
+The APK will be generated at: `build/app/outputs/flutter-apk/app-release.apk`
 
-1. **New User**: Sign up → Choose role (Buyer/Owner)
-2. **Owner**: Create shop → Add products (snap photo, select category, fill info) → Manage availability
-3. **Buyer**: Browse products → Filter by category → Purchase (future feature)
-4. **Admin**: Access admin panel automatically if email matches `chisomlifeeke@gamil.com`
+### GitHub Actions Build
 
-## Key Features Implementation
+This project includes a GitHub Actions workflow that automatically builds the APK:
 
-### Camera Integration
-- Uses `image_picker` package
-- Capture product photos directly
-- Preview before upload
-- Image compression for optimal performance
+1. Push code to `main` or `master` branch
+2. GitHub Actions will automatically:
+   - Set up Flutter and Java
+   - Install dependencies
+   - Build the release APK
+   - Upload the APK as an artifact
+   - Create a GitHub Release with the APK attached
 
-### Category Selection
-- Predefined categories dropdown
-- Electronics, Clothing, Food & Beverages, etc.
-- Easy categorization for better browsing
+#### Manual Trigger
 
-### Product Availability Toggle
-- Simple switch to mark items as sold
-- Visual indicators for availability status
-- Real-time updates
+You can also manually trigger the build:
+1. Go to the **Actions** tab in your GitHub repository
+2. Select **Build Flutter APK** workflow
+3. Click **Run workflow**
+4. Download the APK from the artifacts or release section
 
-### Role Switching
-- Seamless transition between Buyer and Owner roles
-- Different UI based on current role
-- Persistent role selection
+## Project Structure
 
-## Notes
+```
+shop_app/
+├── lib/
+│   ├── main.dart              # App entry point
+│   ├── models/                # Data models
+│   │   ├── user.dart
+│   │   ├── shop.dart
+│   │   └── product.dart
+│   ├── services/              # API and auth services
+│   │   ├── auth_service.dart
+│   │   └── insforge_service.dart
+│   ├── providers/             # State management
+│   │   └── app_provider.dart
+│   └── screens/               # UI screens
+│       ├── login_screen.dart
+│       ├── signup_screen.dart
+│       ├── home_screen.dart
+│       ├── shop_create_screen.dart
+│       ├── shop_detail_screen.dart
+│       ├── product_add_screen.dart
+│       ├── product_list_screen.dart
+│       ├── admin_screen.dart
+│       └── splash_screen.dart
+├── .github/
+│   └── workflows/
+│       └── build_apk.yml      # GitHub Actions workflow
+├── pubspec.yaml               # Dependencies
+└── README.md
+```
 
-- The admin panel is restricted to the email `chisomlifeeke@gamil.com`
-- Product images are currently stored locally; in production, integrate with cloud storage
-- The InsForge API endpoints should be updated with actual backend URLs
-- Add payment integration for complete e-commerce functionality
+## Admin Access
+
+The admin panel is exclusively accessible to:
+- Email: `chisomlifeeke@gamil.com`
 
 ## License
 
-MIT License
+This project is licensed under the MIT License.
+
+## Support
+
+For issues and questions, please open an issue on the GitHub repository.
