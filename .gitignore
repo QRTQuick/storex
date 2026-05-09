@@ -1,11 +1,4 @@
 ```
-# Flutter/Dart
-.dart_tool/
-.build/
-.pub/
-flutter/
-packages/
-
 # Dependencies
 node_modules/
 vendor/
@@ -13,8 +6,34 @@ vendor/
 # Build outputs
 build/
 dist/
-out/
 target/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+.env
+.env.local
+.env.*
+.env~*
+requirements.txt.bak
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
 # IDE
 .vscode/
@@ -22,33 +41,24 @@ target/
 *.swp
 *.swo
 
-# Logs
-*.log
-*.tmp
-
-# Environment
-.env
-.env.local
-*.env.*
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Coverage
+# Test coverage
 coverage/
 htmlcov/
 .coverage
+*.coverage
 
-# Python (if any)
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.pytest_cache/
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# MyPy
 .mypy_cache/
 
-# Compressed
+# Pytest
+.pytest_cache/
+
+# Compressed files
 *.zip
 *.gz
 *.tar
@@ -67,4 +77,8 @@ __pycache__/
 *.Z
 *.lz
 *.lzo
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.tar.zst
 ```

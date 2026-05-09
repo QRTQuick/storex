@@ -29,32 +29,26 @@ jobs:
           cache: true
           
       - name: Get Flutter dependencies
-        run: |
-          cd shop_app
-          flutter pub get
-          
+        run: flutter pub get
+        
       - name: Flutter Analyze
-        run: |
-          cd shop_app
-          flutter analyze
-          
+        run: flutter analyze
+        
       - name: Build APK
-        run: |
-          cd shop_app
-          flutter build apk --release
-          
+        run: flutter build apk --release
+        
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-release
-          path: shop_app/build/app/outputs/flutter-apk/app-release.apk
+          path: build/app/outputs/flutter-apk/app-release.apk
           retention-days: 30
           
       - name: Create Release
         if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
         uses: softprops/action-gh-release@v1
         with:
-          files: shop_app/build/app/outputs/flutter-apk/app-release.apk
+          files: build/app/outputs/flutter-apk/app-release.apk
           tag_name: v${{ github.run_number }}
           name: Release v${{ github.run_number }}
           body: |
